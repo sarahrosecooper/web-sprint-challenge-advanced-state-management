@@ -1,55 +1,9 @@
-import {
-    FETCH_API,
-    FETCH_API_SUCCESS,
-    ADD_SMURF,
-    SET_ERROR,
-    SMURF_ERROR
+import { combineReducers } from "redux";
+import { smurfsReducer } from "./smurfsReducer";
 
-} from "../actions"
+export const initialState = {};
 
-export const initialState = {
-    smurfs: [],
-    isLoading: true,
-    error: ""
-}
-
-export const reducer = (state = initialState, action) => {
-    switch (action.type) {
-        case FETCH_API:
-            return {
-                isLoading: true
-            };
-        case FETCH_API_SUCCESS:
-            return {
-                ...state,
-                smurfs: action.payload,
-                isLoading: false,
-                error: "",
-            };
-        case SET_ERROR:
-            return {
-                ...state,
-            error: action.payload,
-            }
-        case ADD_SMURF: 
-            return {
-                ...state,
-                smurfs: action.payload,
-                isLoading: false,
-                error: "",
-            };
-        case SMURF_ERROR:
-            return {
-                error: action.payload,
-            }
-        default:
-            return state;
-        }
-
-    }
-
-
-export default reducer;
+export const rootReducer = combineReducers({ smurfsReducer });
 
 //Task List:
 //1. Add in the initialState needed to hold: 

@@ -1,42 +1,47 @@
-import React from "react";
-
+import React, { Component } from "react";
 import AddForm from './components/AddForm';
 import SmurfDisplay from './components/SmurfDisplay';
-import axios from 'axios';
+
+import { fetchSmurfs } from './actions';
 import { connect } from "react-redux";
-import { fetchApi } from './actions'
+
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
-const App = (props) => {
-  console.log("app props", props)
 
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchSmurfs();
+  }
+
+  render() {
     return (
       <div className="App">
         <nav className="navbar navbar-dark bg-primary">
-          <a className="navbar-brand">Smurf Village Database</a>
+          <button className="navbar-brand">Smurf Village Database</button>
         </nav>
         <main>
+         
           <AddForm/>
-          <SmurfDisplay smurfs={props.smurfs}/>
+         
+          <SmurfDisplay/>
+
         </main>
       </div>
     );
   }
-
-const mapStateToProps = (state) => {
-  console.log("app state", state)
-  return {
-    smurfs: state.smurfs,
-    isLoading: state.isLoading,
-    error: state.error,
-    
   }
 
-}
+const mapStateToProps = (state) => {
+  return {
+    smurfs: state.smurfsReducer.smurfs,
+    error: state.smurfsReducer.error,
+    isLoading: state.smurfsReducer.isLoading,
+  };
+};
 
-export default connect(mapStateToProps, { fetchApi })(App);
+export default connect(mapStateToProps, { fetchSmurfs })(App);
 
 //Task List:
 //1. Add in SmurfDisplay and AddForm into your application.

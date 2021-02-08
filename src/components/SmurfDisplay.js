@@ -1,35 +1,46 @@
 import React from 'react';
 import { connect } from "react-redux";
-import { fetchApi } from '../actions'
+import { fetchSmurfs } from "../actions";
 import Smurf from "./Smurf";
-
-export const SmurfDisplay = (props) => {
-    console.log("Smurfs display props", props)
-
-    const handleClick = (e) => {
-        e.preventDefault();
-        props.fetchApi();
-    }
-    return(<div>
-        <button onClick={handleClick}>
-            loading smurfs
-        </button>
-        
-           {props.smurfs.map((smurf) => (
-               <Smurf key={smurf.id} smurf={smurf} />
-           ))} 
-        </div>)
-    }
+import FadeLoader from "react-spinners/FadeLoader";
 
 
-const mapStateToProps = (state) => {
-    return {
-        smurfs: state.smurfs,
-        isLoading: state.isLoading,
-        error: state.error
+export class SmurfDisplay extends React.Component {
+    componentDidMount() {
+        this.props.fetchSmurfs();
+      }
+
+    render() {
+        return (
+            <div>
+                {this.props.isLoading ? (
+                    <FadeLoader/>
+
+                ) : (
+                    <div>
+                    {this.props.smurfs.map((smurf) => (
+                        <Smurf key={smurf.id} smurf={smurf}/>
+                    ))
+                        }
+                        </div>
+
+
+                    
+                )}
+            </div>
+        );
     }
 }
-export default connect(mapStateToProps, { fetchApi })(SmurfDisplay);
+
+    const mapStateToProps = (state) => {
+    return {
+      smurfs: state.smurfsReducer.smurfs,
+      error: state.smurfsReducer.error,
+      isLoading: state.smurfsReducer.isLoading,
+    };
+  };
+
+export default connect(mapStateToProps, { fetchSmurfs })(SmurfDisplay);
 
 //Task List:
 //1. Import in all needed components and library methods.

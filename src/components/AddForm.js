@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { addSmurf } from '../actions/';
 
 const AddForm = (props) => {
+    console.log("Addform props", props)
     const [newSmurf, setNewSmurf] = useState([{
         name: "",
         position: "",

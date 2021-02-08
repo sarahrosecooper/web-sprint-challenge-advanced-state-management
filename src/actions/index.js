@@ -1,51 +1,54 @@
 import axios from 'axios';
-
 export const FETCH_API = "FETCH_API";
-export const FETCH_API_SUCCESS = "FETCH_API_SUCCESS";
+export const SMURFS_CAUGHT = "SMURFS_CAUGHT";
+export const ERROR = "ERROR";
 export const ADD_SMURF = "ADD_SMURF";
-export const SET_ERROR = "SET_ERROR";
-export const SMURF_ERROR = "SMURF_ERROR"
+export const data = "http://localhost:3333/smurfs";
 
-const data = "http://localhost:3333/smurfs"
-
-export const fetchApi = () => (dispatch) => {
+export const fetchSmurfs = () => (dispatch) => {
     dispatch({
-        type: FETCH_API 
+        type: FETCH_API
     });
-    setTimeout(() => {
     axios
     .get(data)
     .then((response) => {
+        console.log("actions response data", response);
         dispatch({
-            type: FETCH_API_SUCCESS,
-            payload: response.data
+            type: SMURFS_CAUGHT,
+            payload: response.data,
         });
     })
-        .catch((error) => {
-            dispatch({
-                type: SET_ERROR,
-                payload: `There has been an error: ${error.message}`
-            });
-        });
-    }, 1500);
-};
+    .catch((error) => {
+        console.log("actions data error", error);
+        dispatch({
+            type: ERROR,
+            payload: error.message,
+        })
+    })
+}
 
 export const addSmurf = (newSmurf) => (dispatch) => {
+    dispatch({
+        type: FETCH_API
+    });
     axios
     .post(data, newSmurf)
     .then((response) => {
+        console.log(response, "addSmurf response actions");
         dispatch({
             type: ADD_SMURF,
-            payload: response.data
+            payload: response.data,
         });
     })
-        .catch((error) => {
-            dispatch({
-                type: SMURF_ERROR,
-                payload: `There has been an error: ${error.message}`
-            });
+    .catch((error) => {
+        console.log("error addSmurf actions", error);
+        dispatch({
+            type: ERROR,
+            payload: error.message,
         });
-    };
+    });
+};
+
 
 
 //Task List:
