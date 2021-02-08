@@ -21,6 +21,7 @@ const AddForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         props.addSmurf(newSmurf);
+        
         setNewSmurf({
             name: "",
             position: "",
@@ -28,6 +29,8 @@ const AddForm = (props) => {
             description: ""
         })
     }
+
+    const { error } = props;
     
         return (
         
@@ -35,7 +38,7 @@ const AddForm = (props) => {
             <h2>Add Smurf</h2>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="name">Name:</label><br/>
+                    <label htmlFor="name">name:</label><br/>
                     <input 
                     onChange={handleChange} 
                     name="name" 
@@ -67,8 +70,8 @@ const AddForm = (props) => {
                     placeholder="description here"
                     value={newSmurf.description}/>
                 </div>
-
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {props.error}</div>
+            {error &&
+                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {error}</div>}
                 <button>Submit Smurf</button>
             </form>
         </section>

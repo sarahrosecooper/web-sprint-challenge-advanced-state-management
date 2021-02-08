@@ -28,6 +28,10 @@ export const fetchSmurfs = () => (dispatch) => {
 }
 
 export const addSmurf = (newSmurf) => (dispatch) => {
+    if (newSmurf.name === '' ||  newSmurf.nickname === '' || newSmurf.position === '') {
+        dispatch({type:ERROR, payload: "Name, Position and Nickname are required fields."});
+        return;
+    }
     dispatch({
         type: FETCH_API
     });
@@ -44,7 +48,7 @@ export const addSmurf = (newSmurf) => (dispatch) => {
         console.log("error addSmurf actions", error);
         dispatch({
             type: ERROR,
-            payload: error.message,
+            payload: error.message.data.Error,
         });
     });
 };
