@@ -27,7 +27,6 @@ const App = (props) => {
 
 const mapStateToProps = (state) => {
   console.log("app state", state)
-  
   return {
     smurfs: state.smurfs,
     isLoading: state.isLoading,

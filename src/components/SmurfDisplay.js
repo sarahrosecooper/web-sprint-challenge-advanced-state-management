@@ -1,11 +1,20 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { fetchApi } from '../actions'
 import Smurf from "./Smurf";
 
 export const SmurfDisplay = (props) => {
     console.log("Smurfs display props", props)
 
+    const handleClick = (e) => {
+        e.preventDefault();
+        props.fetchApi();
+    }
     return(<div>
+        <button onClick={handleClick}>
+            loading smurfs
+        </button>
+        
            {props.smurfs.map((smurf) => (
                <Smurf key={smurf.id} smurf={smurf} />
            ))} 
@@ -20,7 +29,7 @@ const mapStateToProps = (state) => {
         error: state.error
     }
 }
-export default connect(mapStateToProps, {})(SmurfDisplay);
+export default connect(mapStateToProps, { fetchApi })(SmurfDisplay);
 
 //Task List:
 //1. Import in all needed components and library methods.

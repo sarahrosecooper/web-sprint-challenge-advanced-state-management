@@ -12,20 +12,23 @@ export const fetchApi = () => (dispatch) => {
     dispatch({
         type: FETCH_API 
     });
-    axios.get(data)
+    setTimeout(() => {
+    axios
+    .get(data)
     .then((response) => {
         dispatch({
             type: FETCH_API_SUCCESS,
             payload: response.data
-        })
+        });
+    })
         .catch((error) => {
             dispatch({
                 type: SET_ERROR,
                 payload: `There has been an error: ${error.message}`
             });
         });
-    });
-}
+    }, 1500);
+};
 
 export const addSmurf = (newSmurf) => (dispatch) => {
     axios
