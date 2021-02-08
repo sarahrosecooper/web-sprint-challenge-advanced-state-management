@@ -1,9 +1,36 @@
 
+import * as actions from "../actions"
+
 export const initialState = {
+    smurfs: [],
+    isLoading: true,
+    error: ""
 }
 
-const reducer = ()=>{
-}
+export const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case FETCH_API:
+            return {
+                isLoading: true
+            };
+        case FETCH_API_SUCCESS:
+            return {
+                ...state,
+            };
+        case ADD_SMURF:
+            return {
+                ...state,
+            }
+        case SET_ERROR: 
+            return {
+                ...state
+            };
+        default:
+            return state;
+        }
+
+    }
+
 
 export default reducer;
 
@@ -12,7 +39,7 @@ export default reducer;
 //      - an array of smurfs
 //      - a boolean indicating if the app is loading
 //      - error text
-//2. Setup your reducer to take the state and action as peremeters
+//2. Setup your reducer to take the state and action as parameters
 //3. Add in cases to your reducer to handle:
 //      - The start of an api call
 //      - The end of an api call
