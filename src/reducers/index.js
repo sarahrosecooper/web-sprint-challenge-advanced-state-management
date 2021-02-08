@@ -1,7 +1,12 @@
+import {
+    FETCH_API,
+    FETCH_API_SUCCESS,
+    ADD_SMURF,
+    SET_ERROR
 
-import * as actions from "../actions"
+} from "../actions"
 
-export const initialState = {
+const initialState = {
     smurfs: [],
     isLoading: true,
     error: ""

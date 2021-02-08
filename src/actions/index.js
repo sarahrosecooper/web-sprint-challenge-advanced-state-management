@@ -1,5 +1,31 @@
 import axios from 'axios';
 
+export const FETCH_API = "FETCH_API";
+export const FETCH_API_SUCCESS = "FETCH_API_SUCCESS";
+export const ADD_SMURF = "ADD_SMURF";
+export const SET_ERROR = "SET_ERROR";
+
+const data = "http://localhost:3333/smurfs"
+
+export const fetchApi = () => (dispatch) => {
+    dispatch({
+        type: FETCH_API 
+    });
+    axios.get(data)
+    .then((response) => {
+        dispatch({
+            type: FETCH_API_SUCCESS,
+            payload: response.data
+        })
+        .catch((error) => {
+            dispatch({
+                type: SET_ERROR,
+                payload: `There has been an error: ${error.message}`
+            });
+        })
+    })
+}
+
 //Task List:
 //1. Add fetch smurfs action: 
 //              - fetch and return initial list of smurfs
