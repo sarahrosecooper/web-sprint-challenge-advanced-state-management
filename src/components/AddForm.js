@@ -1,24 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from "react-redux";
+import { addSmurf } from '../actions/';
 
-class AddForm extends React.Component {
+const AddForm = (props) => {
+    const [newSmurf, setNewSmurf] = useState([{
+        name: "",
+        position: "",
+        nickname: "",
+        description: ""
+    }])
 
-    render() {
-        return(<section>
+    const handleChange = (e) => {
+        setNewSmurf({
+            ...newSmurf, [e.target.name]: e.target.value
+        })
+
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        props.addSmurf(newSmurf);
+        setNewSmurf({
+            name: "",
+            position: "",
+            nickname: "",
+            description: ""
+        })
+    }
+    
+        return (
+        
+        <section>
             <h2>Add Smurf</h2>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label><br/>
-                    <input onChange={this.handleChange} name="name" id="name" />
+                    <input 
+                    onChange={handleChange} 
+                    name="name" 
+                    id="name" 
+                    placeholder="Name here"
+                    value={newSmurf.name}/>
+
+<label htmlFor="position">position:</label><br/>
+                    <input 
+                    onChange={handleChange} 
+                    name="position" 
+                    id="position" 
+                    placeholder="position here"
+                    value={newSmurf.position}/>
+
+<label htmlFor="name">nickname:</label><br/>
+                    <input 
+                    onChange={handleChange} 
+                    name="nickname" 
+                    id="nickname" 
+                    placeholder="nickname here"
+                    value={newSmurf.nickname}/>
+
+<label htmlFor="name">description:</label><br/>
+                    <input 
+                    onChange={handleChange} 
+                    name="description" 
+                    id="description" 
+                    placeholder="description here"
+                    value={newSmurf.description}/>
                 </div>
 
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: </div>
+                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {props.error}</div>
                 <button>Submit Smurf</button>
             </form>
-        </section>);
+        </section>
+        );
+    }
+
+
+const mapStateToProps = (state) => {
+    return {
+        smurfs: state.smurfs,
+        isLoading: state.isLoading,
+        error: state.error
     }
 }
 
-export default AddForm;
+export default connect(mapStateToProps, {addSmurf})(AddForm);
 
 //Task List:
 //1. Add in all necessary import components and library methods.

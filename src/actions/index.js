@@ -23,8 +23,8 @@ export const fetchApi = () => (dispatch) => {
                 type: SET_ERROR,
                 payload: `There has been an error: ${error.message}`
             });
-        })
-    })
+        });
+    });
 }
 
 export const addSmurf = (newSmurf) => (dispatch) => {
@@ -34,15 +34,16 @@ export const addSmurf = (newSmurf) => (dispatch) => {
         dispatch({
             type: ADD_SMURF,
             payload: response.data
-        })
+        });
+    })
         .catch((error) => {
             dispatch({
                 type: SMURF_ERROR,
                 payload: `There has been an error: ${error.message}`
-            })
-        })
-    })
-}
+            });
+        });
+    };
+
 
 //Task List:
 //1. Add fetch smurfs action: 

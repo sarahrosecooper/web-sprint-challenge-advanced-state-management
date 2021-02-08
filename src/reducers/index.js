@@ -7,7 +7,7 @@ import {
 
 } from "../actions"
 
-const initialState = {
+export const initialState = {
     smurfs: [],
     isLoading: true,
     error: ""
@@ -22,18 +22,25 @@ export const reducer = (state = initialState, action) => {
         case FETCH_API_SUCCESS:
             return {
                 ...state,
+                smurfs: action.payload,
+                isLoading: false,
+                error: "",
             };
-        case ADD_SMURF:
+        case SET_ERROR:
             return {
                 ...state,
+            error: action.payload,
             }
-        case SET_ERROR: 
+        case ADD_SMURF: 
             return {
-                ...state
+                ...state,
+                smurfs: action.payload,
+                isLoading: false,
+                error: "",
             };
         case SMURF_ERROR:
             return {
-                ...state
+                error: action.payload,
             }
         default:
             return state;

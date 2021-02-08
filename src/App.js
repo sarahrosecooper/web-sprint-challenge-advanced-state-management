@@ -1,20 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 
 import AddForm from './components/AddForm';
 import SmurfDisplay from './components/SmurfDisplay';
 import axios from 'axios';
+import { connect } from "react-redux";
+import { fetchApi } from './actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
-const App = () => {
+const App = (props) => {
+  console.log("app props", props)
 
-  // to see the data 
-  axios.get("http://localhost:3333/smurfs")
-    .then(res =>
-      console.log("response", res))
-
-    
     return (
       <div className="App">
         <nav className="navbar navbar-dark bg-primary">
@@ -22,14 +19,25 @@ const App = () => {
         </nav>
         <main>
           <AddForm/>
-          <SmurfDisplay/>
+          <SmurfDisplay smurfs={props.smurfs}/>
         </main>
       </div>
     );
   }
 
+const mapStateToProps = (state) => {
+  console.log("app state", state)
+  
+  return {
+    smurfs: state.smurfs,
+    isLoading: state.isLoading,
+    error: state.error,
+    
+  }
 
-export default App;
+}
+
+export default connect(mapStateToProps, { fetchApi })(App);
 
 //Task List:
 //1. Add in SmurfDisplay and AddForm into your application.
