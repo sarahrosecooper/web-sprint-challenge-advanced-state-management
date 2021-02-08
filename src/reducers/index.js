@@ -2,7 +2,8 @@ import {
     FETCH_API,
     FETCH_API_SUCCESS,
     ADD_SMURF,
-    SET_ERROR
+    SET_ERROR,
+    SMURF_ERROR
 
 } from "../actions"
 
@@ -30,6 +31,10 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state
             };
+        case SMURF_ERROR:
+            return {
+                ...state
+            }
         default:
             return state;
         }

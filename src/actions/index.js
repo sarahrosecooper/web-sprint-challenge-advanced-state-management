@@ -4,6 +4,7 @@ export const FETCH_API = "FETCH_API";
 export const FETCH_API_SUCCESS = "FETCH_API_SUCCESS";
 export const ADD_SMURF = "ADD_SMURF";
 export const SET_ERROR = "SET_ERROR";
+export const SMURF_ERROR = "SMURF_ERROR"
 
 const data = "http://localhost:3333/smurfs"
 
@@ -22,6 +23,23 @@ export const fetchApi = () => (dispatch) => {
                 type: SET_ERROR,
                 payload: `There has been an error: ${error.message}`
             });
+        })
+    })
+}
+
+export const addSmurf = (newSmurf) => (dispatch) => {
+    axios
+    .post(data, newSmurf)
+    .then((response) => {
+        dispatch({
+            type: ADD_SMURF,
+            payload: response.data
+        })
+        .catch((error) => {
+            dispatch({
+                type: SMURF_ERROR,
+                payload: `There has been an error: ${error.message}`
+            })
         })
     })
 }
