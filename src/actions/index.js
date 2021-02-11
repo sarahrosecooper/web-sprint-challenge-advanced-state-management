@@ -45,10 +45,10 @@ export const addSmurf = (newSmurf) => (dispatch) => {
         });
     })
     .catch((error) => {
-        console.log("error addSmurf actions", error);
+        // console.log("error addSmurf actions", response);
         dispatch({
             type: ERROR,
-            payload: error.message.data.Error,
+            payload: error.response.data.Error
         });
     });
 };

@@ -30,7 +30,8 @@ const AddForm = (props) => {
         })
     }
 
-    const { error } = props;
+    const error  = props.error;
+    console.log("ADD FORM ERROR", error)
     
         return (
         
@@ -71,7 +72,7 @@ const AddForm = (props) => {
                     value={newSmurf.description}/>
                 </div>
             {error &&
-                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {error}</div>}
+                <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {props.error}</div>}
                 <button>Submit Smurf</button>
             </form>
         </section>
@@ -80,10 +81,11 @@ const AddForm = (props) => {
 
 
 const mapStateToProps = (state) => {
+    console.log("ADDFORM STATE", state);
     return {
-        smurfs: state.smurfs,
-        isLoading: state.isLoading,
-        error: state.error
+        smurfs: state.smurfsReducer.smurfs,
+        isLoading: state.smurfsReducer.isLoading,
+        error: state.smurfsReducer.error
     }
 }
 
